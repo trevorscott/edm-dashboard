@@ -1,0 +1,10 @@
+
+.container{
+  margin:20px;
+}
+
+.messages {
+  padding:20px;
+  max-height:200px;
+  overflow:scroll;
+}
