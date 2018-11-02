@@ -1,11 +1,1 @@
-let backendHost;
-
-const hostname = window && window.location && window.location.hostname;
-
-if(hostname === 'dfe-dashboard.herokuapp.com') {
-  backendHost = 'https://dfe-dashboard.herokuapp.com';
-} else {
-  backendHost = process.env.REACT_APP_BACKEND_HOST || 'http://localhost:5001';
-}
-
-export const API_ROOT = `${backendHost}`;
+export const API_ROOT =  process.env.REACT_APP_EDM_STREAM_BACKEND_HOST || 'http://localhost:5001';;
