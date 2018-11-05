@@ -2,6 +2,13 @@
 
 React app that displays messages from your `edm` kafka cluster. Messages are streamed to the dashboard using socket.io.
 
+This app is part of a series of apps that must be delpoyed in this order:
+
+1. [EDM-Relay](https://github.com/trevorscott/edm-relay)
+1. [EDM-UI](https://github.com/trevorscott/edm-ui)
+1. [EDM-Stream](https://github.com/trevorscott/edm-stream)
+1. [EDM-Dashboard](https://github.com/trevorscott/edm-dashboard)
+
 # Setup
 
 ```
