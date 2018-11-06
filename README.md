@@ -31,3 +31,11 @@ heroku config:set REACT_APP_EDM_STREAM_BACKEND_HOST=<edm-stream-hostname>
 ```
 git push heroku master
 ```
+
+## Scale Up
+
+Scale up your service to avoid sleeping dynos.
+
+```
+heroku ps:scale web=1:standard-1x
+```
