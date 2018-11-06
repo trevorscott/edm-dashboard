@@ -1,6 +1,13 @@
 # edm-dashboard
 
-React app that displays messages from your `edm` kafka cluster. Messages are streamed to the dashboard using socket.io.
+React app that displays messages from your `edm` kafka cluster. Messages are streamed to the dashboard using [socket.io](https://socket.io/).
+
+This app is part of a group of apps that all must be deployed in a particular order:
+
+1. [edm-relay](https://github.com/trevorscott/edm-relay)
+1. [edm-ui](https://github.com/trevorscott/edm-ui)
+1. [edm-stream](https://github.com/trevorscott/edm-stream)
+1. [edm-dashboard](https://github.com/trevorscott/edm-dashboard)
 
 # Setup
 
