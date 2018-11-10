@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 import { API_ROOT } from './api-config';
 import './Dashboard.css';
+import ClicksChart from './ClicksChart.js';
+import PopularClicksChart from './PopularClicksChart.js';
+import Grid from 'react-css-grid'
 
 const socket = io(API_ROOT);
 
@@ -12,9 +15,10 @@ class Dashboard extends Component {
     this.state = {
       message: null,
       fetching: true,
-      messages:[]
+      messages:[],
+      latestMessage: null
     };
-    socket.on('event', (data)=> {
+    socket.on('event', (data) => {
       this.updateMessages(data);
     });
   }
@@ -23,7 +27,8 @@ class Dashboard extends Component {
     console.log(data);
     if(this.state.messages) {
       this.setState({
-        messages:this.state.messages.concat(data)
+        messages:this.state.messages.concat(data),
+        latestMessage:data
       })
     }else {
       this.setState({
@@ -45,24 +50,38 @@ class Dashboard extends Component {
   }
 
   render() {
-    const messageList = this.state.messages.map((m)=>
+    const messageList = this.state.messages.map((m) =>
       <li>{m}</li>
     );
     return (
       <div className="dashboard">
         <h1>Dashboard</h1>
-        <div className="container">
-          <p>Message Log</p>
-          <br/>
-          <div className="messages">
-            <ul>
-              {messageList}
-            </ul>
-            <div style={{ float:"left", clear: "both" }}
-                 ref={(el) => { this.messagesEnd = el; }}>
+        <Grid
+          width={400}
+          gap={10}>
+          <div>
+            <p>Historical Event Count</p>
+            <ClicksChart latestMessage={this.state.latestMessage}/>
+          </div>
+          <div>
+            <div className="container">
+              <p>Message Log</p>
+              <br/>
+              <div className="messages">
+                <ul>
+                  {messageList}
+                </ul>
+                <div style={{ float:"left", clear: "both" }}
+                     ref={(el) => { this.messagesEnd = el; }}>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+          <div>
+            <p>Popular Clicks Chart</p>
+            <PopularClicksChart latestMessage={this.state.latestMessage}/>
+          </div>
+        </Grid>
       </div>
     );
   }
