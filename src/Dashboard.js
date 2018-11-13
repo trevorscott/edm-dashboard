@@ -4,7 +4,6 @@ import { API_ROOT } from './api-config';
 import './Dashboard.css';
 import ClicksChart from './ClicksChart.js';
 import PopularClicksChart from './PopularClicksChart.js';
-import Grid from 'react-css-grid'
 
 const socket = io(API_ROOT);
 
@@ -56,14 +55,12 @@ class Dashboard extends Component {
     return (
       <div className="dashboard">
         <h1>Dashboard</h1>
-        <Grid
-          width={400}
-          gap={10}>
-          <div>
+        <div className="grid-container">
+          <div className="item1">
             <p>Historical Event Count</p>
             <ClicksChart latestMessage={this.state.latestMessage}/>
           </div>
-          <div>
+          <div className="item5">
             <div className="container">
               <p>Message Log</p>
               <br/>
@@ -77,11 +74,11 @@ class Dashboard extends Component {
               </div>
             </div>
           </div>
-          <div>
+          <div className="item2">
             <p>Popular Clicks Chart</p>
             <PopularClicksChart latestMessage={this.state.latestMessage}/>
           </div>
-        </Grid>
+        </div>
       </div>
     );
   }

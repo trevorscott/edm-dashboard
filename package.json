@@ -13,7 +13,6 @@
   "license": "MIT",
   "dependencies": {
     "react": "^16.6.0",
-    "react-css-grid": "^2.0.0-0",
     "react-dom": "^16.6.0",
     "react-vis": "^1.11.4",
     "socket.io-client": "^2.1.1"

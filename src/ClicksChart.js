@@ -25,13 +25,9 @@ export default class ClicksChart extends React.Component {
 		};
 	}
 
-  render() {
-    const data = [
-      {x: 'Clicks', y: this.state.clicks},
-      {x: 'Loads', y: this.state.loads}
-    ];
-    if(this.props.latestMessage) {
-      const json = JSON.parse(this.props.latestMessage);
+  componentWillReceiveProps(newProps) {
+    if(newProps.latestMessage) {
+      const json = JSON.parse(newProps.latestMessage);
       switch (json.topic) {
         case 'edm-ui-click':
           this.state.clicks++;
@@ -44,13 +40,25 @@ export default class ClicksChart extends React.Component {
         break;
       }
     }
+  }
+
+  render() {
+    const clicksData = [
+      {y: this.state.clicks,x: 'Clicks', color:'#3cadff'},
+      {y: this.state.loads,x: 'Loads',  color:'ffeb30'}, 
+    ];
+    const loadsData = [
+      
+    ];
+
+
     return (
       <div>
         <XYPlot xType="ordinal" height={400} width={400}>
-          <XAxis />
-          <YAxis />
-		  <VerticalBarSeries animation='gentle' data={data} />
-		</XYPlot>
+          <XAxis attr="x" attrAxis="y" orientation="bottom"/>
+          <YAxis attr="y" attrAxis="x" orientation="left"/>
+    		  <VerticalBarSeries animation='gentle' data={clicksData} />
+    		</XYPlot>
       </div>
     );
   }

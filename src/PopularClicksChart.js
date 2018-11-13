@@ -20,13 +20,13 @@ export default class PopularClicksChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [{x: 1, y: 'test'}]
+      data: []
     };
   }
 
-  componentWillReceiveProps() {
-    if(this.props.latestMessage) {
-      const json = JSON.parse(this.props.latestMessage);
+  componentWillReceiveProps(newProps) {
+    if(newProps.latestMessage) {
+      const json = JSON.parse(newProps.latestMessage);
       switch (json.topic) {
         case 'edm-ui-click':
           console.log(json.properties.button_id);
@@ -34,16 +34,18 @@ export default class PopularClicksChart extends React.Component {
           const e = this.state.data.find((element) => {
             return element.y === buttonId;
           });
+          console.log('element:'+e);
           if(e === undefined) {
             // create data
             this.setState({
               data:this.state.data.concat({x: 1, y: json.properties.button_id})
             });
+            break;
           }else {
             //increment data
             e.x++;
+            break;
           }
-          break;
       case 'edm-ui-pageload': 
           break;
       default:
@@ -57,7 +59,7 @@ export default class PopularClicksChart extends React.Component {
     console.log(this.state.data);
     return (
       <div>
-        <XYPlot yType={'ordinal'} height={400} width={400}>
+        <XYPlot yType={'ordinal'} height={400} width={600} margin={{left: 200}}>
           <VerticalGridLines />
           <HorizontalGridLines />
           <XAxis />
