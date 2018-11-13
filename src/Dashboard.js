@@ -4,6 +4,7 @@ import { API_ROOT } from './api-config';
 import './Dashboard.css';
 import ClicksChart from './ClicksChart.js';
 import PopularClicksChart from './PopularClicksChart.js';
+import AreaSeriesChart from './AreaSeriesChart.js';
 
 const socket = io(API_ROOT);
 
@@ -23,7 +24,7 @@ class Dashboard extends Component {
   }
 
   updateMessages(data) {
-    console.log(data);
+    // console.log(data);
     if(this.state.messages) {
       this.setState({
         messages:this.state.messages.concat(data),
@@ -37,7 +38,7 @@ class Dashboard extends Component {
   }
 
   scrollToBottom() {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    // this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
   componentDidMount() {
@@ -56,11 +57,18 @@ class Dashboard extends Component {
       <div className="dashboard">
         <h1>Dashboard</h1>
         <div className="grid-container">
-          <div className="item1">
+{/*          <div className="item1">
             <p>Historical Event Count</p>
             <ClicksChart latestMessage={this.state.latestMessage}/>
+          </div>*/}
+          <div className="item2">
+            <p>Popular Clicks Chart</p>
+            <PopularClicksChart latestMessage={this.state.latestMessage}/>
           </div>
-          <div className="item5">
+          <div className="item3">
+            <AreaSeriesChart latestMessage={this.state.latestMessage}/>
+          </div>
+          <div className="item4">
             <div className="container">
               <p>Message Log</p>
               <br/>
@@ -73,10 +81,6 @@ class Dashboard extends Component {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="item2">
-            <p>Popular Clicks Chart</p>
-            <PopularClicksChart latestMessage={this.state.latestMessage}/>
           </div>
         </div>
       </div>

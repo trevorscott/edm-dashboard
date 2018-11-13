@@ -25,15 +25,20 @@ export default class ClicksChart extends React.Component {
 		};
 	}
 
+// this.setState({ count: this.state.count + 1 })
   componentWillReceiveProps(newProps) {
     if(newProps.latestMessage) {
       const json = JSON.parse(newProps.latestMessage);
       switch (json.topic) {
         case 'edm-ui-click':
-          this.state.clicks++;
+          this.setState({
+            clicks:this.state.clicks + 1
+          });
           break;
-      case 'edm-ui-pageload': 
-          this.state.loads++;
+        case 'edm-ui-pageload': 
+          this.setState({
+            loads:this.state.loads + 1
+          });
           break;
       default:
         console.log("default switch")
