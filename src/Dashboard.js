@@ -57,15 +57,12 @@ class Dashboard extends Component {
       <div className="dashboard">
         <h1>Dashboard</h1>
         <div className="grid-container">
-{/*          <div className="item1">
-            <p>Historical Event Count</p>
-            <ClicksChart latestMessage={this.state.latestMessage}/>
-          </div>*/}
           <div className="item2">
-            <p>Popular Clicks Chart</p>
+            <p>Popular Clicks</p>
             <PopularClicksChart latestMessage={this.state.latestMessage}/>
           </div>
           <div className="item3">
+            <p>Event Histogram</p>
             <AreaSeriesChart latestMessage={this.state.latestMessage}/>
           </div>
           <div className="item4">

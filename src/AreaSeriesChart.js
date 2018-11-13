@@ -53,11 +53,6 @@ export default class AreaSeriesChart extends React.Component {
     }, 3000);
   }
 
-  // componentWillUnmount() {
-  //   clearInterval(this._timerId);
-  // }
-
-// this.setState({ count: this.state.count + 1 })
   componentWillReceiveProps(newProps) {
     if(newProps.latestMessage) {
       const json = JSON.parse(newProps.latestMessage);
@@ -91,7 +86,6 @@ export default class AreaSeriesChart extends React.Component {
     // console.log("finalDataLoads",finalDataLoads);
     return (
       <div>
-        <p>Area Series Chart</p>
         <FlexibleXYPlot height={400} yDomain={[0, 15]} >
           <VerticalGridLines />
           <HorizontalGridLines />
