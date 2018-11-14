@@ -122,6 +122,8 @@ export default class PopularClicksChart extends React.Component {
   }
 
   render() {
+    const finalData = this.props.clickData ? this.props.clickData : this.state.data;
+    console.log(finalData);
     return (
       <div>
         <FlexibleXYPlot yType={'ordinal'} height={400} margin={{left: 200}}>
@@ -129,7 +131,7 @@ export default class PopularClicksChart extends React.Component {
           <HorizontalGridLines />
           <XAxis />
           <YAxis />
-        <HorizontalBarSeries colorType='literal' animation='gentle' data={this.state.data} />
+        <HorizontalBarSeries colorType='literal' animation='gentle' data={finalData} />
       </FlexibleXYPlot>
       </div>
     );

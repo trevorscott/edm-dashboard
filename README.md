@@ -25,6 +25,7 @@ e.g if your `edm-stream` app name was `my-stream` you may set this config var as
 
 ```
 heroku config:set REACT_APP_EDM_STREAM_BACKEND_HOST=<edm-stream-hostname>
+heroku config:set REACT_APP_EDM_STATS_BACKEND_HOST=<edm-stats-hostname>
 ```
 
 ## Deploy

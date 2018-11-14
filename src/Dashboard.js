@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
-import { API_ROOT } from './api-config';
+import { API_ROOT, API_ROOT_STATS } from './api-config';
 import './Dashboard.css';
-import ClicksChart from './ClicksChart.js';
 import PopularClicksChart from './PopularClicksChart.js';
 import AreaSeriesChart from './AreaSeriesChart.js';
+import ClicksByDayChart from './ClicksByDayChart.js';
 
 const socket = io(API_ROOT);
 
@@ -16,7 +16,9 @@ class Dashboard extends Component {
       message: null,
       fetching: true,
       messages:[],
-      latestMessage: null
+      latestMessage: null,
+      clickData: null,
+      clickHistory: null
     };
     socket.on('event', (data) => {
       this.updateMessages(data);
@@ -42,11 +44,38 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.scrollToBottom();
+    // this.scrollToBottom();
+    fetch(`${API_ROOT_STATS}/api/clickCount`)
+    .then(response => response.json())
+    .then(data => {
+      //console.log(data);
+      this.setState({
+        clickData:data.map(e=>{
+          return {x:e.count,y:e.button_id} 
+        })
+      });
+    })
+    .catch(error => {
+      console.error(error.message); 
+    });
+
+    fetch(`${API_ROOT_STATS}/api/clickHistory`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      this.setState({
+        clickHistory:data.map(e=>{
+          return {x:e.Day,y:e.clicks} 
+        })
+      });
+    })
+    .catch(error => {
+      console.error(error.message); 
+    });
   }
 
   componentDidUpdate() {
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }
 
   render() {
@@ -55,17 +84,28 @@ class Dashboard extends Component {
     );
     return (
       <div className="dashboard">
-        <h1>Dashboard</h1>
+        <h1>Dashboard</h1> 
         <div className="grid-container">
+          <div className="item1">
+            <p className="logo-text">Click History by Product</p>
+            <PopularClicksChart clickData={this.state.clickData}/>
+          </div>
           <div className="item2">
-            <p>Popular Clicks</p>
-            <PopularClicksChart latestMessage={this.state.latestMessage}/>
+            <p className="logo-text">Live Clciks by Product</p>
+            {this.state.latestMessage ? 
+              <PopularClicksChart latestMessage={this.state.latestMessage}/>
+              : <span>Waiting to receive data...</span>
+            }
           </div>
           <div className="item3">
-            <p>Event Histogram</p>
-            <AreaSeriesChart latestMessage={this.state.latestMessage}/>
+            <p className="logo-text">Click History by Day</p>
+            <ClicksByDayChart clickHistory={this.state.clickHistory}/>
           </div>
           <div className="item4">
+            <p className="logo-text">Live Click Histogram</p>
+            <AreaSeriesChart latestMessage={this.state.latestMessage}/>
+          </div>
+          <div className="item5">
             <div className="container">
               <p>Message Log</p>
               <br/>

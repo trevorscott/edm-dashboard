@@ -1,6 +1,6 @@
 .dashboard {
-  max-width:1024px;
-  margin:0px auto;
+  margin-left:2em;
+  margin-right:2em;
 }
 
 
@@ -28,15 +28,4 @@
   font-size: 30px;
 }
 
-.item2 {
-  grid-column: 1 / span 3;
-  grid-row: 1;
-}
-.item3 {
-  grid-column: 1 / span 3;
-  grid-row: 2;
-}
-.item4 {
-  grid-column: 1 / span 3;
-  grid-row: 3;
-}
+
