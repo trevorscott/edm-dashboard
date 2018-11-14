@@ -30,7 +30,10 @@ export default class AreaSeriesChart extends React.Component {
     this.loadCounter = 0;
     this.state = {
       data:[],
-      loadData: []
+      loadData: [],
+      lastClickCount : 0,
+      lastLoadCount : 0,
+      maxDomain : 15
     };
   }
 
@@ -46,11 +49,19 @@ export default class AreaSeriesChart extends React.Component {
     this._timerId = setInterval(() => {
       this.setState({
         data:this.state.data.concat({x:getSeconds(), y: this.clickCounter}),
-        loadData:this.state.loadData.concat({x:getSeconds(), y: this.loadCounter})  
+        loadData:this.state.loadData.concat({x:getSeconds(), y: this.loadCounter}),
+        lastClickCount: this.clickCounter,  
+        lastLoadCount: this.loadCounter,
+        maxDomain: Math.max(this.state.maxDomain,this.state.lastLoadCount,this.state.lastClickCount, 15)  
       });
+      
       this.clickCounter=0;
       this.loadCounter=0;
     }, 3000);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this._timerId);
   }
 
   componentWillReceiveProps(newProps) {
@@ -86,7 +97,7 @@ export default class AreaSeriesChart extends React.Component {
     // console.log("finalDataLoads",finalDataLoads);
     return (
       <div>
-        <FlexibleXYPlot height={400} yDomain={[0, 15]} >
+        <FlexibleXYPlot height={400} yDomain={[0, this.state.maxDomain]} >
           <VerticalGridLines />
           <HorizontalGridLines />
           <YAxis />
