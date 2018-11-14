@@ -91,7 +91,7 @@ class Dashboard extends Component {
             <PopularClicksChart clickData={this.state.clickData}/>
           </div>
           <div className="item2">
-            <p className="logo-text">Live Clciks by Product</p>
+            <p className="logo-text">Live Clicks by Product</p>
             {this.state.latestMessage ? 
               <PopularClicksChart latestMessage={this.state.latestMessage}/>
               : <span>Waiting to receive data...</span>

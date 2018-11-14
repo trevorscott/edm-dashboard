@@ -482,7 +482,7 @@ footer a {
 }
 
 
-.item2 span {
-  height: 90px;
-  line-height: 90px;
+.logo-text {
+  line-height: 5em;
+  text-align: center;
 }
