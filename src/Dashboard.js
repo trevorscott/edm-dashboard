@@ -51,7 +51,7 @@ class Dashboard extends Component {
       //console.log(data);
       this.setState({
         clickData:data.map(e=>{
-          return {x:e.count,y:e.button_id} 
+          return {x:e.sum,y:e.button_id} 
         })
       });
     })
