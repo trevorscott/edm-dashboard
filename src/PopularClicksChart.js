@@ -81,7 +81,7 @@ const colors3 = [
 ]
 
 function getColor(index) {
-  return colors3[index];
+  return colors[index];
 }
 
 export default class PopularClicksChart extends React.Component {
@@ -103,8 +103,9 @@ export default class PopularClicksChart extends React.Component {
           });
           if(e === undefined) {
             // create data
+            // color:getColor(this.state.data.length + 1)
             this.setState({
-              data:this.state.data.concat({x: 1, y: json.properties.button_id, color:getColor(this.state.data.length + 1)})
+              data:this.state.data.concat({x: 1, y: json.properties.button_id})
             });
             break;
           }else {

@@ -12,6 +12,9 @@
   "author": "Trevor Scott",
   "license": "MIT",
   "dependencies": {
+    "d3-array": "^2.0.2",
+    "d3-random": "^1.1.2",
+    "d3-scale": "^2.1.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-vis": "^1.11.4",

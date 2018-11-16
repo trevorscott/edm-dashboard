@@ -65,7 +65,9 @@ class Dashboard extends Component {
       console.log(data);
       this.setState({
         clickHistory:data.map(e=>{
-          return {x:e.Day,y:e.clicks} 
+          //2018-11-09T08:00:00.000Z
+          var d = new Date(e.Day);
+          return {x:d.toLocaleDateString("en-US"),y:e.clicks} 
         })
       });
     })
@@ -86,36 +88,36 @@ class Dashboard extends Component {
       <div className="dashboard">
         <h1>Dashboard</h1> 
         <div className="grid-container">
-          <div className="item1">
-            <p className="logo-text">Click History by Product</p>
+          <div className="item item1">
+            <p className="logo-text">Button Clicks</p>
             <PopularClicksChart clickData={this.state.clickData}/>
           </div>
-          <div className="item2">
-            <p className="logo-text">Live Clicks by Product</p>
+          <div className="item item2">
+            <p className="logo-text">Live Button Clicks</p>
             {this.state.latestMessage ? 
               <PopularClicksChart latestMessage={this.state.latestMessage}/>
               : <span>Waiting to receive data...</span>
             }
           </div>
-          <div className="item3">
-            <p className="logo-text">Click History by Day</p>
+          <div className="item item3">
+            <p className="logo-text">Clicks Per Day</p>
             <ClicksByDayChart clickHistory={this.state.clickHistory}/>
           </div>
-          <div className="item4">
-            <p className="logo-text">Live Click Histogram</p>
+          <div className="item item4">
+            <p className="logo-text">Clicks Per Second</p>
             <AreaSeriesChart latestMessage={this.state.latestMessage}/>
           </div>
-          <div className="item5">
-            <div className="container">
-              <p>Message Log</p>
-              <br/>
-              <div className="messages">
-                <ul>
-                  {messageList}
-                </ul>
-                <div style={{ float:"left", clear: "both" }}
-                     ref={(el) => { this.messagesEnd = el; }}>
-                </div>
+        </div>
+        <div className="item5">
+          <div className="container">
+            <p>Message Log</p>
+            <br/>
+            <div className="messages">
+              <ul>
+                {messageList}
+              </ul>
+              <div style={{ float:"left", clear: "both" }}
+                   ref={(el) => { this.messagesEnd = el; }}>
               </div>
             </div>
           </div>

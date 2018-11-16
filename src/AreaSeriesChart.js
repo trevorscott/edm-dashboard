@@ -11,7 +11,8 @@ import {
   makeWidthFlexible,
   VerticalBarSeriesCanvas,
   LabelSeries,
-  DiscreteColorLegend
+  DiscreteColorLegend,
+  FlexibleXYPlot
 }from 'react-vis';
 
 import React, { Component } from 'react';
@@ -20,8 +21,6 @@ import { API_ROOT } from './api-config';
 function getSeconds() {
   return Math.floor(new Date().getTime() / 1000);
 }
-
-const FlexibleXYPlot = makeWidthFlexible(XYPlot); 
 
 export default class AreaSeriesChart extends React.Component {
   constructor(props) {

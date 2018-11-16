@@ -22,6 +22,8 @@
   display: grid;
   grid-gap: 2em;
   grid-row-gap:2em;
+  grid-auto-rows: minmax(400px, auto);
+  grid-template-columns: repeat(auto-fit, minmax(400px, 2fr));
 }
 .grid-item {
   text-align: left;
@@ -29,5 +31,46 @@
   font-size: 30px;
 }
 
-grid-row-gap: 1em;
+
+/*.item {
+  display: flex;
+  align-items: flex-end;
+}
+*/
+
+@media (min-width: 500px) {
+
+}
+@media (min-width: 500px) and (min-height: 500px) {
+
+}
+@media (min-width: 900px) {
+
+}
+@media (min-width: 1200px) and (min-height: 1000px) {
+ 
+}
+
+
+/* .item1 {
+  grid-column: 1 / span 1;
+  grid-row: 1;
+}
+.item2 {
+  grid-column: 2 / span 1;
+  grid-row: 1;
+}
+.item3 {
+  grid-column: 1 / span 1;
+  grid-row: 2;
+}
+.item4 {
+  grid-column: 2 / span 1;
+  grid-row: 2;
+}
+.item5 {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+}*/
+
 
