@@ -1,22 +1,13 @@
 import {
   XYPlot,
-  XAxis,
   YAxis,
   VerticalGridLines,
   HorizontalGridLines,
-  HorizontalBarSeries,
-  LineSeries,
   AreaSeries,
-  MarkSeries,
-  makeWidthFlexible,
-  VerticalBarSeriesCanvas,
-  LabelSeries,
-  DiscreteColorLegend,
   FlexibleXYPlot
-}from 'react-vis';
+} from 'react-vis';
 
-import React, { Component } from 'react';
-import { API_ROOT } from './api-config';
+import React from 'react';
 
 function getSeconds() {
   return Math.floor(new Date().getTime() / 1000);
@@ -96,24 +87,23 @@ export default class AreaSeriesChart extends React.Component {
     // console.log("finalDataLoads",finalDataLoads);
     return (
       <div>
+        { this.props.width ?
+          <XYPlot width={this.props.width} height={400} yDomain={[0, this.state.maxDomain]} >
+            <VerticalGridLines />
+            <HorizontalGridLines />
+            <YAxis />
+          <AreaSeries curve="curveMonotoneX" data={finalDataClicks} animation='gentle' />
+          <AreaSeries curve="curveMonotoneX" data={finalDataLoads} animation='gentle'/>
+        </XYPlot>
+        :
         <FlexibleXYPlot height={400} yDomain={[0, this.state.maxDomain]} >
-          <VerticalGridLines />
-          <HorizontalGridLines />
-          <YAxis />
-        <AreaSeries curve="curveMonotoneX" data={finalDataClicks} animation='gentle' />
-        <AreaSeries curve="curveMonotoneX" data={finalDataLoads} animation='gentle'/>
-      </FlexibleXYPlot>
-    <DiscreteColorLegend 
-      colors={[
-        '#12939a',
-        '#79c7e3'
-      ]}
-      items={[
-        'Button Clicks',
-        'Page Loads'
-      ]}
-      orientation="horizontal"
-    />
+            <VerticalGridLines />
+            <HorizontalGridLines />
+            <YAxis />
+          <AreaSeries curve="curveMonotoneX" data={finalDataClicks} animation='gentle' />
+          <AreaSeries curve="curveMonotoneX" data={finalDataLoads} animation='gentle'/>
+        </FlexibleXYPlot>
+      }
       </div>
     );
   }

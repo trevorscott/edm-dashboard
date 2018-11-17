@@ -5,6 +5,8 @@ import './Dashboard.css';
 import PopularClicksChart from './PopularClicksChart.js';
 import AreaSeriesChart from './AreaSeriesChart.js';
 import ClicksByDayChart from './ClicksByDayChart.js';
+import MessageList from './MessageList.js';
+import { DiscreteColorLegend } from 'react-vis';
 
 const socket = io(API_ROOT);
 
@@ -18,15 +20,32 @@ class Dashboard extends Component {
       messages:[],
       latestMessage: null,
       clickData: null,
-      clickHistory: null
+      clickHistory: null,
+      width:0,
+      height:0,
+      chartWidth:400
     };
     socket.on('event', (data) => {
       this.updateMessages(data);
     });
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
+  updateWindowDimensions() {
+    let chartWidth;
+    if (window.innerWidth > 1000) {
+      chartWidth = Math.floor(window.innerWidth/2 -  40);
+    }else {
+      chartWidth = 0;
+    }
+    this.setState({ 
+      width: window.innerWidth,
+      height: window.innerHeight,
+      chartWidth: chartWidth
+    });
   }
 
   updateMessages(data) {
-    // console.log(data);
     if(this.state.messages) {
       this.setState({
         messages:this.state.messages.concat(data),
@@ -44,14 +63,20 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    // this.scrollToBottom();
+    
+    //calculate window size for charts
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+
+    //get the historical click count per product
     fetch(`${API_ROOT_STATS}/api/clickCount`)
     .then(response => response.json())
     .then(data => {
-      //console.log(data);
       this.setState({
         clickData:data.map(e=>{
-          return {x:e.sum,y:e.button_id} 
+          let num = parseInt(e.sum);
+          if (isNaN(num)) { num=0 }
+          return {x:num,y:e.button_id} 
         })
       });
     })
@@ -59,13 +84,12 @@ class Dashboard extends Component {
       console.error(error.message); 
     });
 
+    // get the total clicks per day history
     fetch(`${API_ROOT_STATS}/api/clickHistory`)
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       this.setState({
         clickHistory:data.map(e=>{
-          //2018-11-09T08:00:00.000Z
           var d = new Date(e.Day);
           return {x:d.toLocaleDateString("en-US"),y:e.clicks} 
         })
@@ -76,52 +100,65 @@ class Dashboard extends Component {
     });
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
   componentDidUpdate() {
     // this.scrollToBottom();
   }
 
   render() {
-    const messageList = this.state.messages.map((m) =>
-      <li>{m}</li>
-    );
     return (
       <div className="dashboard">
         <h1>Dashboard</h1> 
-        <div className="grid-container">
-          <div className="item item1">
-            <p className="logo-text">Button Clicks</p>
-            <PopularClicksChart clickData={this.state.clickData}/>
+        <div className="flex-grid">
+          <div className="col">
+            <p className="title">Button Clicks</p>
+            <div className="chart-wrapper">
+              <PopularClicksChart title="Clicks" width={this.state.chartWidth} clickData={this.state.clickData}/>
+            </div>
           </div>
-          <div className="item item2">
-            <p className="logo-text">Live Button Clicks</p>
-            {this.state.latestMessage ? 
-              <PopularClicksChart latestMessage={this.state.latestMessage}/>
-              : <span>Waiting to receive data...</span>
-            }
-          </div>
-          <div className="item item3">
-            <p className="logo-text">Clicks Per Day</p>
-            <ClicksByDayChart clickHistory={this.state.clickHistory}/>
-          </div>
-          <div className="item item4">
-            <p className="logo-text">Clicks Per Second</p>
-            <AreaSeriesChart latestMessage={this.state.latestMessage}/>
-          </div>
-        </div>
-        <div className="item5">
-          <div className="container">
-            <p>Message Log</p>
-            <br/>
-            <div className="messages">
-              <ul>
-                {messageList}
-              </ul>
-              <div style={{ float:"left", clear: "both" }}
-                   ref={(el) => { this.messagesEnd = el; }}>
-              </div>
+          <div className="col">
+            <p className="title">Live Button Clicks</p>
+            <div className="chart-wrapper">
+              {
+                this.state.latestMessage ?
+                  <PopularClicksChart title="Clicks" width={this.state.chartWidth} latestMessage={this.state.latestMessage}/> 
+                : <p className="waiting">Waiting for data...</p>
+              }
             </div>
           </div>
         </div>
+        <div className="flex-grid">
+          <div className="col">
+            <p className="title">Clicks Per Day</p>
+            <div className="chart-wrapper">
+              <ClicksByDayChart width={this.state.chartWidth} clickHistory={this.state.clickHistory}/>
+            </div>
+          </div>
+          <div className="col">
+            <p className="title">Clicks Per Second</p>
+            <div className="chart-wrapper">
+              <AreaSeriesChart width={this.state.chartWidth} latestMessage={this.state.latestMessage}/>
+            </div>
+            <DiscreteColorLegend 
+              colors={[
+                '#12939a',
+                '#79c7e3'
+              ]}
+              items={[
+                'Button Clicks',
+                'Page Loads'
+              ]}
+              orientation="horizontal"
+            />
+          </div>
+        </div>
+        <div className="message-list">
+          <MessageList messages={this.state.messages}/>
+        </div>
+          
       </div>
     );
   }
