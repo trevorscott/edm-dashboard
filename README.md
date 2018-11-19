@@ -25,8 +25,8 @@ You should have deployed `edm-stream`. You will need to set the following config
 e.g if your `edm-stream` app name was `my-stream` you may set this config var as `https://my-stream.herokuapp.com`.
 
 ```
-heroku config:set REACT_APP_EDM_STREAM_BACKEND_HOST=<edm-stream-hostname>
-heroku config:set REACT_APP_EDM_STATS_BACKEND_HOST=<edm-stats-hostname>
+heroku config:set REACT_APP_EDM_STREAM_BACKEND_HOST="https://<edm-stream-appName>.herokuapp.com"
+heroku config:set REACT_APP_EDM_STATS_BACKEND_HOST="https://<edm-stats-appName>.herokuapp.com"
 ```
 
 ## Deploy
@@ -40,4 +40,11 @@ Scale up your service to avoid sleeping dynos.
 
 ```
 heroku ps:scale web=1:standard-1x
+```
+
+## Local Dev
+
+```
+npm install
+npm start
 ```
