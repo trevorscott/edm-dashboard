@@ -28,6 +28,13 @@ e.g if your `edm-stream` app name was `my-stream` you may set this config var as
 heroku config:set REACT_APP_EDM_STREAM_BACKEND_HOST="https://<edm-stream-appName>.herokuapp.com"
 heroku config:set REACT_APP_EDM_STATS_BACKEND_HOST="https://<edm-stats-appName>.herokuapp.com"
 ```
+### .env
+
+By default create-react-app runs on port 3000. Since we have two create-react-apps running simultaneously we will run into a conflict. To avoid conflict create a .env file in the root of the project and add a single line into it:
+
+```
+PORT=3001
+```
 
 ## Deploy
 ```
