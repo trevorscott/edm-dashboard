@@ -24,7 +24,7 @@ export default class PopularClicksChart extends React.Component {
     if(newProps.latestMessage) {
       const json = JSON.parse(newProps.latestMessage);
       switch (json.topic) {
-        case 'edm-ui-click':
+        case 'edm-ui-click' || 'edm-ui-click-local':
           const buttonId = json.properties.button_id;
           const e = this.state.data.find((element) => {
             return element.y === buttonId;
@@ -41,7 +41,7 @@ export default class PopularClicksChart extends React.Component {
             e.x++;
             break;
           }
-      case 'edm-ui-pageload': 
+      case 'edm-ui-pageload' || 'edm-ui-pageload-local': 
           break;
       default:
         console.log("default switch")

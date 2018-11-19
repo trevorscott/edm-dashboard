@@ -58,10 +58,10 @@ export default class AreaSeriesChart extends React.Component {
     if(newProps.latestMessage) {
       const json = JSON.parse(newProps.latestMessage);
       switch (json.topic) {
-        case 'edm-ui-click':
+        case 'edm-ui-click' || 'edm-ui-click-local':
           this.addOneClick();
           break;
-        case 'edm-ui-pageload':
+        case 'edm-ui-pageload' || 'edm-ui-pageload-local':
           this.addOneLoad(); 
           break;
       default:
