@@ -14,7 +14,7 @@ This app is part of a group of apps that all must be deployed in a particular or
 
 ```
 git clone git@github.com:trevorscott/edm-dashboard.git && cd edm-dashboard
-heroku create $app_name
+heroku create $appName
 heroku buildpacks:set mars/create-react-app
 ```
 
