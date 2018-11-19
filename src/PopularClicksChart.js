@@ -9,6 +9,7 @@ import {
 }from 'react-vis';
 
 import React from 'react';
+import { CLICK_KAFKA_TOPIC, PAGE_LOAD_KAFKA_TOPIC } from './kafka-topics.js';
 
 const FlexibleXYPlot = makeWidthFlexible(XYPlot); 
 
@@ -24,7 +25,7 @@ export default class PopularClicksChart extends React.Component {
     if(newProps.latestMessage) {
       const json = JSON.parse(newProps.latestMessage);
       switch (json.topic) {
-        case 'edm-ui-click' || 'edm-ui-click-local':
+        case CLICK_KAFKA_TOPIC:
           const buttonId = json.properties.button_id;
           const e = this.state.data.find((element) => {
             return element.y === buttonId;
@@ -41,7 +42,7 @@ export default class PopularClicksChart extends React.Component {
             e.x++;
             break;
           }
-      case 'edm-ui-pageload' || 'edm-ui-pageload-local': 
+      case PAGE_LOAD_KAFKA_TOPIC: 
           break;
       default:
         console.log("default switch")

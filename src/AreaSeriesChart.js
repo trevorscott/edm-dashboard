@@ -8,6 +8,7 @@ import {
 } from 'react-vis';
 
 import React from 'react';
+import { CLICK_KAFKA_TOPIC, PAGE_LOAD_KAFKA_TOPIC } from './kafka-topics.js';
 
 function getSeconds() {
   return Math.floor(new Date().getTime() / 1000);
@@ -58,10 +59,10 @@ export default class AreaSeriesChart extends React.Component {
     if(newProps.latestMessage) {
       const json = JSON.parse(newProps.latestMessage);
       switch (json.topic) {
-        case 'edm-ui-click' || 'edm-ui-click-local':
+        case CLICK_KAFKA_TOPIC:
           this.addOneClick();
           break;
-        case 'edm-ui-pageload' || 'edm-ui-pageload-local':
+        case PAGE_LOAD_KAFKA_TOPIC:
           this.addOneLoad(); 
           break;
       default:
