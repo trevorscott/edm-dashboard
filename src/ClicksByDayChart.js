@@ -21,11 +21,20 @@ export default class AreaLineChart extends React.Component {
   }
 
   render() {
+    // console.log(this.props.clickHistory);
+    let maxDomain = 50;
+    if (this.props.clickHistory) {
+      let arr = this.props.clickHistory.map(e=>{
+        return e.y;
+      });
+      maxDomain = Math.max.apply(null,arr);
+    }
+    console.log(maxDomain);
     return (
       <div>
       { this.props.clickHistory ?
           this.props.width ?
-            <XYPlot width={this.props.width} xType="ordinal" height={400}>
+            <XYPlot width={this.props.width} xType="ordinal" height={400} yDomain={[0,maxDomain]}>
               <VerticalGridLines />
               <HorizontalGridLines />
               <XAxis title="Date"/>
@@ -33,7 +42,7 @@ export default class AreaLineChart extends React.Component {
               <VerticalBarSeries animation='gentle' data={this.props.clickHistory}/>
             </XYPlot>
           :
-            <FlexibleXYPlot xType="ordinal" height={400}>
+            <FlexibleXYPlot xType="ordinal" height={400} yDomain={[0,maxDomain]}>
               <VerticalGridLines />
               <HorizontalGridLines />
               <XAxis title="Date"/>

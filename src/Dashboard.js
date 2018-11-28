@@ -88,11 +88,15 @@ class Dashboard extends Component {
     fetch(`${API_ROOT_STATS}/api/clickHistory`)
     .then(response => response.json())
     .then(data => {
+      const finalClickHistoryData = data.filter(e => {
+        if (e.clicks) return true;
+        else return false;
+      }).map(e => {
+        const d = new Date(e.Day);
+        return {x:d.toLocaleDateString("en-US"),y:e.clicks} 
+      })
       this.setState({
-        clickHistory:data.map(e=>{
-          var d = new Date(e.Day);
-          return {x:d.toLocaleDateString("en-US"),y:e.clicks} 
-        })
+        clickHistory:finalClickHistoryData
       });
     })
     .catch(error => {
