@@ -12,6 +12,10 @@ This app is part of a group of apps that all must be deployed in a particular or
 
 ![Event Driven Microservices with Apache Kafka on Heroku Demo Architecture](https://s3.amazonaws.com/octo-public/kafka-microservices.png "EDM")
 
+## Terraform Deploy
+
+To deploy this entire demo with a single command see [edm-terraform](https://github.com/trevorscott/edm-terraform).
+
 # Setup
 
 ```
