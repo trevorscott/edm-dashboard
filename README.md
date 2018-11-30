@@ -12,6 +12,10 @@ This app is part of a group of apps that all must be deployed in a particular or
 
 ![Event Driven Microservices with Apache Kafka on Heroku Demo Architecture](https://s3.amazonaws.com/octo-public/kafka-microservices.png "EDM")
 
+## Terraform Deploy
+
+To deploy this entire demo with a single command see [edm-terraform](https://github.com/trevorscott/edm-terraform).
+
 # Setup
 
 ```
@@ -30,13 +34,7 @@ e.g if your `edm-stream` app name was `my-stream` you may set this config var as
 heroku config:set REACT_APP_EDM_STREAM_BACKEND_HOST="https://<edm-stream-appName>.herokuapp.com"
 heroku config:set REACT_APP_EDM_STATS_BACKEND_HOST="https://<edm-stats-appName>.herokuapp.com"
 ```
-### .env
 
-By default create-react-app runs on port 3000. Since we have two create-react-apps running simultaneously we will run into a conflict. To avoid conflict create a .env file in the root of the project and add a single line into it:
-
-```
-PORT=3001
-```
 
 ## Deploy
 ```
@@ -52,6 +50,16 @@ heroku ps:scale web=1:standard-1x
 ```
 
 ## Local Dev
+
+### .env
+
+By default create-react-app runs on port 3000. Since we have two create-react-apps running simultaneously we will run into a conflict. To avoid conflict create a .env file in the root of the project and add a single line into it:
+
+```
+PORT=3001
+```
+
+### Run
 
 ```
 npm install
