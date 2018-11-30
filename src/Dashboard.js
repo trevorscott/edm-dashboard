@@ -58,11 +58,9 @@ class Dashboard extends Component {
     }
   }
 
-  scrollToBottom() {
-    // this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-  }
-
   componentDidMount() {
+    console.log(`Listening for events from ${API_ROOT}`);
+    console.log(`Querying historical data from ${API_ROOT_STATS}`);
     
     //calculate window size for charts
     this.updateWindowDimensions();
@@ -106,10 +104,6 @@ class Dashboard extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-
-  componentDidUpdate() {
-    // this.scrollToBottom();
   }
 
   render() {
