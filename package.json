@@ -12,6 +12,7 @@
   "author": "Trevor Scott",
   "license": "MIT",
   "dependencies": {
+    "@mars/heroku-js-runtime-env": "^3.0.2",
     "d3-array": "^2.0.2",
     "d3-random": "^1.1.2",
     "d3-scale": "^2.1.2",
