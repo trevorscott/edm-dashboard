@@ -22,7 +22,10 @@
 
 .title {
   font-size:17px;
-  line-height: 3;
+}
+.sub-title{
+  line-height:2;
+  font-size:12px;
 }
 
 .waiting {
@@ -32,6 +35,7 @@
 .chart-wrapper {
   border:1px solid #eee;
   min-height:400px;
+  margin-bottom:1em;
 }
 
 @media (max-width: 1000px) {

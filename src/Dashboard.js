@@ -109,16 +109,18 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard">
-        <h1>Dashboard</h1> 
+        <h1>EDM Dashboard</h1> 
         <div className="flex-grid">
           <div className="col">
-            <p className="title">Button Clicks</p>
+            <h2 className="title">Button Clicks</h2>
+            <p className="sub-title">historical click data</p>
             <div className="chart-wrapper">
               <PopularClicksChart title="Clicks" width={this.state.chartWidth} clickData={this.state.clickData}/>
             </div>
           </div>
           <div className="col">
-            <p className="title">Live Button Clicks</p>
+            <h2 className="title">Live Button Clicks</h2>
+            <p className="sub-title">streaming click data</p>
             <div className="chart-wrapper">
               {
                 this.state.latestMessage ?
@@ -130,13 +132,15 @@ class Dashboard extends Component {
         </div>
         <div className="flex-grid">
           <div className="col">
-            <p className="title">Clicks Per Day</p>
+            <h2 className="title">Clicks Per Day</h2>
+            <p className="sub-title">historical click data</p>
             <div className="chart-wrapper">
               <ClicksByDayChart width={this.state.chartWidth} clickHistory={this.state.clickHistory}/>
             </div>
           </div>
           <div className="col">
-            <p className="title">Clicks Per Second</p>
+            <h2 className="title">Clicks Per Second</h2>
+            <p className="sub-title">streaming click data</p>
             <div className="chart-wrapper">
               <AreaSeriesChart width={this.state.chartWidth} latestMessage={this.state.latestMessage}/>
             </div>
