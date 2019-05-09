@@ -34,10 +34,10 @@ export default class AreaLineChart extends React.Component {
       <div>
       { this.props.clickHistory ?
           this.props.width ?
-            <XYPlot width={this.props.width} xType="ordinal" height={400} yDomain={[0,maxDomain]}>
+            <XYPlot width={this.props.width} xType="ordinal" height={400} margin={{bottom: 60}} yDomain={[0,maxDomain]}>
               <VerticalGridLines />
               <HorizontalGridLines />
-              <XAxis title="Date"/>
+              <XAxis title="Date" tickLabelAngle={-90}/>
               <YAxis title="Clicks"/>
               <VerticalBarSeries animation='gentle' data={this.props.clickHistory}/>
             </XYPlot>
@@ -45,7 +45,7 @@ export default class AreaLineChart extends React.Component {
             <FlexibleXYPlot xType="ordinal" height={400} yDomain={[0,maxDomain]}>
               <VerticalGridLines />
               <HorizontalGridLines />
-              <XAxis title="Date"/>
+              <XAxis title="Date" tickLabelAngle={-90} />
               <YAxis title="Clicks"/>
               <VerticalBarSeries animation='gentle' data={this.props.clickHistory}/>
             </FlexibleXYPlot>
